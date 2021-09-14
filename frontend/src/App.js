@@ -1,9 +1,17 @@
-import './App.css'
+import { Fragment } from 'react'
+import GetStarted from './screens/GetStarted'
+import Home from './screens/Home'
+
 const App = () => {
+  const isLoggedIn = false
+
   return (
-    <div>
-      <h1>Gaz Elec App</h1>
-    </div>
+    <Fragment>
+      <main>
+        {!isLoggedIn && <GetStarted />}
+        {isLoggedIn && <Home />}
+      </main>
+    </Fragment>
   )
 }
 
