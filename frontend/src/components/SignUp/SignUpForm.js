@@ -1,20 +1,30 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { register } from '../../actions/userActions'
 import Input from '../UI/Input'
-import http from '../../services/service'
 
 const SignUpForm = () => {
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
-  const [passwordRepeat, setPasswordRepeat] = useState('')
-  const formIsValid = true
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [message, setMessage] = useState(null)
+
+  const dispatch = useDispatch()
+
+  const userRegister = useSelector((state) => state.userRegister)
+  const { loading, error, userInfo } = userRegister
 
   const submitHandler = (e) => {
     e.preventDefault()
 
-    if (formIsValid) {
-      //Send a http request
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match')
+      console.log(message)
+    } else {
+      dispatch(register(firstName, lastName, email, password))
     }
   }
 
@@ -62,9 +72,9 @@ const SignUpForm = () => {
           id='password-repeat'
           label='Repeat A Password'
           type='password'
-          value={passwordRepeat}
+          value={confirmPassword}
           onChange={(e) => {
-            setPasswordRepeat(e.target.value)
+            setConfirmPassword(e.target.value)
           }}
         />
         <div>forgot password?</div>
