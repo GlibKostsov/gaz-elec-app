@@ -1,17 +1,16 @@
-import { Fragment } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
 import GetStarted from './screens/GetStarted'
 import Home from './screens/Home'
 
 const App = () => {
-  const isLoggedIn = false
-
   return (
-    <Fragment>
-      <main>
-        {!isLoggedIn && <GetStarted />}
-        {isLoggedIn && <Home />}
-      </main>
-    </Fragment>
+    <Router>
+      <Switch>
+        <Route exact path={['/', '/getstarted']} component={GetStarted} />
+        <Route exact path='/home' component={Home} />
+      </Switch>
+    </Router>
   )
 }
 
